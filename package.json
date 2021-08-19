@@ -2,6 +2,7 @@
   "name": "cleddit-web-client",
   "version": "0.1.0",
   "private": true,
+  "license": "GPL3",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +10,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/react": "17.0.19",
+    "autoprefixer": "^10.3.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7",
     "typescript": "4.3.5"
   }
 }
