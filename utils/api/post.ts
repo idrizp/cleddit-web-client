@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_ENDPOINT } from "../request_utils";
+import { API_ENDPOINT, authenticatedAxios } from "../request_utils";
 
 export interface CommentResponse {
   id: string;
@@ -25,8 +25,27 @@ export interface PostListResponse {
   posts: PostResponse[];
 }
 
-export async function getPostsInAll(page: number = 1) {
-  try {
-    axios.get(`${API_ENDPOINT}/api/post/all/${page}`);
-  } catch (err) {}
+export interface VoteRequest {
+  postId: string;
+  positive: boolean;
+}
+
+export interface VoteResponse {
+  positive: boolean;
+}
+
+export function getPostsInAll(page: number = 1) {
+  return axios.get<PostListResponse>(`${API_ENDPOINT}/api/post/all/${page}`);
+}
+
+export function getPost(postId: string) {
+  return axios.get<PostResponse>(`${API_ENDPOINT}/api/post/one/${postId}`);
+}
+
+export function vote(postId: string, positive: boolean) {
+  const payload: VoteRequest = {
+    postId: postId,
+    positive: positive
+  }
+  return authenticatedAxios.post<VoteResponse>(`${API_ENDPOINT}/api/post/vote/`, payload);
 }

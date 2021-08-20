@@ -1,9 +1,7 @@
-import axios, {
-  AxiosError,
-} from "axios";
+import axios, { AxiosError } from "axios";
 import { refreshAuthenticationToken } from "./api/authentication";
 
-export const API_ENDPOINT = "localhost:8080";
+export const API_ENDPOINT = "http://localhost:8080";
 
 export const authenticatedAxios = axios.create();
 
