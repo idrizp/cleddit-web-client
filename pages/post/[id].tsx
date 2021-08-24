@@ -2,6 +2,10 @@ import { useRouter } from "next/dist/client/router";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import Header, { Navigation } from "../../components/Header";
+import Post from "../../components/post/Post";
+import VoteBar from "../../components/post/VoteBar";
+import { hasAuthenticationToken } from "../../utils/api/authentication";
 import { getPost, PostResponse } from "../../utils/api/post";
 
 export default function PostPage() {
@@ -26,16 +30,13 @@ export default function PostPage() {
 
   return (
     <div className="bg-gray-900 min-h-screen h-full">
-      {error && (
-        <h1 className="text-center text-white text-3xl">Post not found.</h1>
-      )}
-      {post && (
-        <div className="flex flex-col p-3 font-main">
-          <p className="text-gray-500 font-light italic">{post.posterName}</p>
-          <p className="text-gray-400 text-3xl font-bold">{post.title}</p>
-          <p className="text-gray-300 text-lg">{post.content}</p>
-        </div>
-      )}
+      <Header />
+      <div>
+        {error && (
+          <h1 className="text-center text-white text-3xl">Post not found.</h1>
+        )}
+        {post && <Post post={post} />}
+      </div>
     </div>
   );
 }

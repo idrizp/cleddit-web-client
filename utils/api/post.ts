@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_ENDPOINT, authenticatedAxios } from "../request_utils";
+import { API_ENDPOINT, authenticatedAxios, defaultAxios } from "../request_utils";
 
 export interface CommentResponse {
   id: string;
@@ -34,12 +33,14 @@ export interface VoteResponse {
   positive: boolean;
 }
 
-export function getPostsInAll(page: number = 1) {
-  return axios.get<PostListResponse>(`${API_ENDPOINT}/api/post/all/${page}`);
+const getAxios = () => localStorage.getItem("token") !== null ? authenticatedAxios : defaultAxios;
+
+export function getPostsInSubcleddit(subcleddit: string, page: number = 1) {
+  return getAxios().get<PostListResponse>(`${API_ENDPOINT}/api/post/${subcleddit}/${page}`);
 }
 
 export function getPost(postId: string) {
-  return axios.get<PostResponse>(`${API_ENDPOINT}/api/post/one/${postId}`);
+  return getAxios().get<PostResponse>(`${API_ENDPOINT}/api/post/one/${postId}`);
 }
 
 export function vote(postId: string, positive: boolean) {

@@ -4,6 +4,7 @@ import { refreshAuthenticationToken } from "./api/authentication";
 export const API_ENDPOINT = "http://localhost:8080";
 
 export const authenticatedAxios = axios.create();
+export const defaultAxios = axios.create();
 
 authenticatedAxios.interceptors.request.use(async (config) => {
   config.headers = {
@@ -22,6 +23,7 @@ authenticatedAxios.interceptors.response.use(
     if (error.response?.status === 401) {
       const result = await refreshAuthenticationToken();
       if (!result) {
+        localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
         return Promise.reject(error);
       }
