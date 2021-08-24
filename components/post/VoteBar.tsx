@@ -8,23 +8,25 @@ export interface VoteBarProps {
 }
 
 export default function VoteBar(props: VoteBarProps) {
-	const [positive, setPositive] = useState(props.post.vote);
-	
-	function castVote(result: boolean) {
-		if (positive === result) {
-			return;
-		}
-		vote(props.post.postId, result).then(result => {
-			setPositive(result.data.positive);
-		}).catch(err => {
-			setPositive(undefined);
-		})
-	}
+  const [positive, setPositive] = useState(props.post.vote);
 
-	return (
+  function castVote(result: boolean) {
+    if (positive === result) {
+      return;
+    }
+    vote(props.post.postId, result)
+      .then((result) => {
+        setPositive(result.data.positive);
+      })
+      .catch((err) => {
+        setPositive(undefined);
+      });
+  }
+
+  return (
     <div className="flex flex-row space-x-5">
       <button
-	  	onClick={() => castVote(true)}
+        onClick={() => castVote(true)}
         className={
           positive !== undefined && positive === true
             ? "text-yellow-600"
@@ -34,7 +36,7 @@ export default function VoteBar(props: VoteBarProps) {
         <Upvote size="30" />
       </button>
       <button
-	  	onClick={() => castVote(false)}
+        onClick={() => castVote(false)}
         className={
           positive !== undefined && positive === false
             ? "text-red-600"

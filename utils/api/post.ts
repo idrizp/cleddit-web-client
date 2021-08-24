@@ -1,4 +1,8 @@
-import { API_ENDPOINT, authenticatedAxios, defaultAxios } from "../request_utils";
+import {
+  API_ENDPOINT,
+  authenticatedAxios,
+  defaultAxios,
+} from "../request_utils";
 
 export interface CommentResponse {
   id: string;
@@ -33,10 +37,13 @@ export interface VoteResponse {
   positive: boolean;
 }
 
-const getAxios = () => localStorage.getItem("token") !== null ? authenticatedAxios : defaultAxios;
+const getAxios = () =>
+  localStorage.getItem("token") !== null ? authenticatedAxios : defaultAxios;
 
 export function getPostsInSubcleddit(subcleddit: string, page: number = 1) {
-  return getAxios().get<PostListResponse>(`${API_ENDPOINT}/api/post/${subcleddit}/${page}`);
+  return getAxios().get<PostListResponse>(
+    `${API_ENDPOINT}/api/post/${subcleddit}/${page}`
+  );
 }
 
 export function getPost(postId: string) {
@@ -46,7 +53,10 @@ export function getPost(postId: string) {
 export function vote(postId: string, positive: boolean) {
   const payload: VoteRequest = {
     postId: postId,
-    positive: positive
-  }
-  return authenticatedAxios.post<VoteResponse>(`${API_ENDPOINT}/api/post/vote/`, payload);
+    positive: positive,
+  };
+  return authenticatedAxios.post<VoteResponse>(
+    `${API_ENDPOINT}/api/post/vote/`,
+    payload
+  );
 }

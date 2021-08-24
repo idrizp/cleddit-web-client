@@ -23,7 +23,7 @@ export default function ListPost(props: PostProps) {
           </div>
         </a>
       </Link>
-      { hasAuthenticationToken() && <VoteBar post={props.post} /> }
+      {hasAuthenticationToken() && <VoteBar post={props.post} />}
     </div>
   );
 }
